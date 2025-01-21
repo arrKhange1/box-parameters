@@ -1,44 +1,65 @@
-import { OrbitControls } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
+import { useFrame } from '@react-three/fiber';
+import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { Size } from './App';
 
-interface MyMeshProps {}
+interface MyMeshProps {
+  size: Size;
+  updateRequire: (requireUpdate: boolean) => void;
+}
 
-export const MyMesh: React.FC<MyMeshProps> = () => {
-  const camera = useThree((state) => state.camera);
-  const [width, setWidth] = useState(100);
+const FULL_RELATIVE_SIZE = 100;
 
-  useEffect(() => {
-    console.log(new THREE.Vector3(window.innerWidth, 0, 0).project(camera));
-  }, []);
-
-  const vertices = new Float32Array([
-    -1,
+function getVertices(meshWidth: number): Float32Array {
+  return new Float32Array([
+    -meshWidth,
     -1,
     -1, // 0: Bottom-left-back
-    1,
+    meshWidth,
     -1,
     -1, // 1: Bottom-right-back
-    1,
+    meshWidth,
     1,
     -1, // 2: Top-right-back
-    -1,
+    -meshWidth,
     1,
     -1, // 3: Top-left-back
-    -1,
+    -meshWidth,
     -1,
     1, // 4: Bottom-left-front
-    1,
+    meshWidth,
     -1,
     1, // 5: Bottom-right-front
-    1,
+    meshWidth,
     1,
     1, // 6: Top-right-front
-    -1,
+    -meshWidth,
     1,
     1, // 7: Top-left-front
   ]);
+}
+
+export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state, delta) => {
+    meshRef.current.rotation.x += delta;
+
+    if (size.requireUpdate) {
+      const meshWidth = size.width / FULL_WIDTH;
+      const pos = meshRef.current.geometry.getAttribute('position');
+      getVertices(meshWidth).forEach((vertix, i) => {
+        pos['array'][i] = vertix;
+      });
+      meshRef.current.geometry.attributes.position.needsUpdate = true;
+      updateRequire(false);
+    }
+  });
+
+  const vertices = useMemo(() => {
+    const meshWidth = size.width / FULL_WIDTH;
+    console.log(meshWidth);
+    return getVertices(meshWidth);
+  }, [size]);
 
   const indices = new Uint32Array([
     // Back face
@@ -57,9 +78,7 @@ export const MyMesh: React.FC<MyMeshProps> = () => {
 
   return (
     <>
-      <axesHelper args={[1]} />
-      <OrbitControls />
-      <mesh>
+      <mesh ref={meshRef}>
         <bufferGeometry>
           <bufferAttribute array={vertices} attach="attributes-position" itemSize={3} />
           <bufferAttribute array={indices} attach="index" count={indices.length} />
