@@ -37,6 +37,7 @@ function App() {
       <span>{size.width}</span>
       <Canvas>
         <OrbitControls />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
         <MyMesh size={size} updateRequire={(requireUpdate) => setSize((prev) => ({ ...prev, requireUpdate }))} />
       </Canvas>
     </div>

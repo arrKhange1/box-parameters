@@ -80,8 +80,8 @@ export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
         <bufferGeometry>
           <bufferAttribute array={vertices} attach="attributes-position" itemSize={3} />
           <bufferAttribute array={indices} attach="index" count={indices.length} />
-          <meshBasicMaterial side={THREE.DoubleSide} />
         </bufferGeometry>
+        <meshStandardMaterial side={THREE.DoubleSide} />
       </mesh>
     </>
   );
