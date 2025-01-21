@@ -1,6 +1,6 @@
 import { Canvas, extend } from '@react-three/fiber';
 import cls from './App.module.css';
-import { MyMesh } from './MyMesh';
+import { getVertices, MyMesh } from './MyMesh';
 import { useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { ParametersForm } from './ParametersForm';
@@ -14,11 +14,22 @@ export type Size = {
 };
 
 function App() {
-  const meshRef = useRef<THREE.Mesh | null>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  function onParametersFilled(form: ParametersForm) {
+    console.log(form);
+    if (meshRef.current) {
+      const pos = meshRef.current.geometry.getAttribute('position');
+      getVertices(form.width, form.height, form.depth).forEach((vertix, i) => {
+        pos['array'][i] = vertix;
+      });
+      meshRef.current.geometry.attributes.position.needsUpdate = true;
+    }
+  }
 
   return (
     <div className={cls.canvasContainer}>
-      <ParametersForm ref={meshRef} />
+      <ParametersForm onParametersFilled={onParametersFilled} />
       <Canvas>
         <OrbitControls />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />

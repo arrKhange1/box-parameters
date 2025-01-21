@@ -7,7 +7,7 @@ interface MyMeshProps {}
 
 const FULL_RELATIVE_SIZE = 100;
 
-function getVertices(width: number, height: number, depth: number): Float32Array {
+export function getVertices(width: number, height: number, depth: number): Float32Array {
   const meshWidth = width / FULL_RELATIVE_SIZE;
   const meshHeight = height / FULL_RELATIVE_SIZE;
   const meshDepth = depth / FULL_RELATIVE_SIZE;

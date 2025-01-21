@@ -1,8 +1,6 @@
-import { forwardRef } from 'react';
 import { useForm } from 'react-hook-form';
-import * as THREE from 'three';
 
-type ParametersForm = {
+export type ParametersForm = {
   width: number;
   height: number;
   depth: number;
@@ -10,9 +8,11 @@ type ParametersForm = {
 
 const FULL_RELATIVE_SIZE = 100;
 
-interface ParametersFormProps {}
+interface ParametersFormProps {
+  onParametersFilled: (form: ParametersForm) => void;
+}
 
-export const ParametersForm = forwardRef<THREE.Mesh, ParametersFormProps>((props, ref) => {
+export const ParametersForm: React.FC<ParametersFormProps> = ({ onParametersFilled }) => {
   const { register, handleSubmit } = useForm<ParametersForm>({
     defaultValues: {
       width: FULL_RELATIVE_SIZE,
@@ -22,7 +22,7 @@ export const ParametersForm = forwardRef<THREE.Mesh, ParametersFormProps>((props
   });
 
   function onSubmit(form: ParametersForm) {
-    console.log(form, ref);
+    onParametersFilled(form);
   }
 
   return (
@@ -33,4 +33,4 @@ export const ParametersForm = forwardRef<THREE.Mesh, ParametersFormProps>((props
       <input type="submit" />
     </form>
   );
-});
+};
