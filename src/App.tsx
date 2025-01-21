@@ -1,8 +1,10 @@
 import { Canvas } from '@react-three/fiber';
 import cls from './App.module.css';
 import { MyMesh } from './MyMesh';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
+import { ParametersForm } from './ParametersForm';
+import * as THREE from 'three';
 
 export type Size = {
   width: number;
@@ -12,33 +14,19 @@ export type Size = {
 };
 
 function App() {
-  const [size, setSize] = useState<Size>({ width: 100, height: 100, depth: 100, requireUpdate: false });
+  const meshRef = useRef<THREE.Mesh | null>(null);
+
+  useEffect(() => {
+    console.log(meshRef);
+  }, []);
 
   return (
     <div className={cls.canvasContainer}>
-      <input
-        name="width"
-        type="text"
-        placeholder="Width"
-        onChange={(e) => setSize((prev) => ({ ...prev, width: Number(e.target.value), requireUpdate: true }))}
-      />
-      <input
-        name="width"
-        type="text"
-        placeholder="Height"
-        onChange={(e) => setSize((prev) => ({ ...prev, height: Number(e.target.value), requireUpdate: true }))}
-      />
-      <input
-        name="width"
-        type="text"
-        placeholder="Depth"
-        onChange={(e) => setSize((prev) => ({ ...prev, depth: Number(e.target.value), requireUpdate: true }))}
-      />
-      <span>{size.width}</span>
+      <ParametersForm onParametersFilled={(form) => console.log(meshRef)} />
       <Canvas>
         <OrbitControls />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-        <MyMesh size={size} updateRequire={(requireUpdate) => setSize((prev) => ({ ...prev, requireUpdate }))} />
+        <MyMesh ref={meshRef} />
       </Canvas>
     </div>
   );

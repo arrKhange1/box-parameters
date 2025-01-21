@@ -1,12 +1,9 @@
 import { useFrame } from '@react-three/fiber';
-import React, { useMemo, useRef } from 'react';
+import React, { forwardRef, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { Size } from './App';
 
-interface MyMeshProps {
-  size: Size;
-  updateRequire: (requireUpdate: boolean) => void;
-}
+interface MyMeshProps {}
 
 const FULL_RELATIVE_SIZE = 100;
 
@@ -42,22 +39,21 @@ function getVertices(width: number, height: number, depth: number): Float32Array
   ]);
 }
 
-export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  useFrame((state, delta) => {
-    if (size.requireUpdate) {
-      const pos = meshRef.current.geometry.getAttribute('position');
-      getVertices(size.width, size.height, size.depth).forEach((vertix, i) => {
-        pos['array'][i] = vertix;
-      });
-      meshRef.current.geometry.attributes.position.needsUpdate = true;
-      updateRequire(false);
-    }
-  });
+export const MyMesh = forwardRef<THREE.Mesh, MyMeshProps>((props, meshRef) => {
+  //   useFrame((state, delta) => {
+  //     if (size.requireUpdate) {
+  //       const pos = meshRef.current.geometry.getAttribute('position');
+  //       getVertices(size.width, size.height, size.depth).forEach((vertix, i) => {
+  //         pos['array'][i] = vertix;
+  //       });
+  //       meshRef.current.geometry.attributes.position.needsUpdate = true;
+  //       updateRequire(false);
+  //     }
+  //   });
 
-  const vertices = useMemo(() => {
-    return getVertices(size.width, size.height, size.depth);
-  }, [size]);
+  // const vertices = useMemo(() => {
+  //   return getVertices(size.width, size.height, size.depth);
+  // }, [size]);
 
   const indices = new Uint32Array([
     // Back face
@@ -78,11 +74,11 @@ export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
     <>
       <mesh ref={meshRef}>
         <bufferGeometry>
-          <bufferAttribute array={vertices} attach="attributes-position" itemSize={3} />
+          <bufferAttribute array={getVertices(100, 100, 100)} attach="attributes-position" itemSize={3} />
           <bufferAttribute array={indices} attach="index" count={indices.length} />
         </bufferGeometry>
         <meshStandardMaterial side={THREE.DoubleSide} />
       </mesh>
     </>
   );
-};
+});
