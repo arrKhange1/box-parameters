@@ -10,31 +10,34 @@ interface MyMeshProps {
 
 const FULL_RELATIVE_SIZE = 100;
 
-function getVertices(meshWidth: number): Float32Array {
+function getVertices(width: number, height: number, depth: number): Float32Array {
+  const meshWidth = width / FULL_RELATIVE_SIZE;
+  const meshHeight = height / FULL_RELATIVE_SIZE;
+  const meshDepth = depth / FULL_RELATIVE_SIZE;
   return new Float32Array([
     -meshWidth,
-    -1,
+    -meshHeight,
     -1, // 0: Bottom-left-back
     meshWidth,
-    -1,
+    -meshHeight,
     -1, // 1: Bottom-right-back
     meshWidth,
-    1,
+    meshHeight,
     -1, // 2: Top-right-back
     -meshWidth,
-    1,
+    meshHeight,
     -1, // 3: Top-left-back
     -meshWidth,
-    -1,
+    -meshHeight,
     1, // 4: Bottom-left-front
     meshWidth,
-    -1,
+    -meshHeight,
     1, // 5: Bottom-right-front
     meshWidth,
-    1,
+    meshHeight,
     1, // 6: Top-right-front
     -meshWidth,
-    1,
+    meshHeight,
     1, // 7: Top-left-front
   ]);
 }
@@ -45,9 +48,8 @@ export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
     meshRef.current.rotation.x += delta;
 
     if (size.requireUpdate) {
-      const meshWidth = size.width / FULL_WIDTH;
       const pos = meshRef.current.geometry.getAttribute('position');
-      getVertices(meshWidth).forEach((vertix, i) => {
+      getVertices(size.width, size.height, size.depth).forEach((vertix, i) => {
         pos['array'][i] = vertix;
       });
       meshRef.current.geometry.attributes.position.needsUpdate = true;
@@ -56,9 +58,7 @@ export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
   });
 
   const vertices = useMemo(() => {
-    const meshWidth = size.width / FULL_WIDTH;
-    console.log(meshWidth);
-    return getVertices(meshWidth);
+    return getVertices(size.width, size.height, size.depth);
   }, [size]);
 
   const indices = new Uint32Array([
