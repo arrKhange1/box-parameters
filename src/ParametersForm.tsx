@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { defaultParameters } from './parameters.constant';
 
 export type ParametersForm = {
   width: number;
@@ -6,19 +7,13 @@ export type ParametersForm = {
   depth: number;
 };
 
-const FULL_RELATIVE_SIZE = 100;
-
 interface ParametersFormProps {
   onParametersFilled: (form: ParametersForm) => void;
 }
 
 export const ParametersForm: React.FC<ParametersFormProps> = ({ onParametersFilled }) => {
   const { register, handleSubmit } = useForm<ParametersForm>({
-    defaultValues: {
-      width: FULL_RELATIVE_SIZE,
-      height: FULL_RELATIVE_SIZE,
-      depth: FULL_RELATIVE_SIZE,
-    },
+    defaultValues: defaultParameters,
   });
 
   function onSubmit(form: ParametersForm) {

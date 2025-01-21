@@ -1,0 +1,8 @@
+import { ParametersForm } from './ParametersForm';
+
+export const FULL_RELATIVE_SIZE = 100;
+export const defaultParameters: ParametersForm = {
+  width: FULL_RELATIVE_SIZE,
+  height: FULL_RELATIVE_SIZE,
+  depth: FULL_RELATIVE_SIZE,
+};
