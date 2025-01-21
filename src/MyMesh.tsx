@@ -17,36 +17,34 @@ function getVertices(width: number, height: number, depth: number): Float32Array
   return new Float32Array([
     -meshWidth,
     -meshHeight,
-    -1, // 0: Bottom-left-back
+    -meshDepth, // 0: Bottom-left-back
     meshWidth,
     -meshHeight,
-    -1, // 1: Bottom-right-back
+    -meshDepth, // 1: Bottom-right-back
     meshWidth,
     meshHeight,
-    -1, // 2: Top-right-back
+    -meshDepth, // 2: Top-right-back
     -meshWidth,
     meshHeight,
-    -1, // 3: Top-left-back
+    -meshDepth, // 3: Top-left-back
     -meshWidth,
     -meshHeight,
-    1, // 4: Bottom-left-front
+    meshDepth, // 4: Bottom-left-front
     meshWidth,
     -meshHeight,
-    1, // 5: Bottom-right-front
+    meshDepth, // 5: Bottom-right-front
     meshWidth,
     meshHeight,
-    1, // 6: Top-right-front
+    meshDepth, // 6: Top-right-front
     -meshWidth,
     meshHeight,
-    1, // 7: Top-left-front
+    meshDepth, // 7: Top-left-front
   ]);
 }
 
 export const MyMesh: React.FC<MyMeshProps> = ({ size, updateRequire }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   useFrame((state, delta) => {
-    meshRef.current.rotation.x += delta;
-
     if (size.requireUpdate) {
       const pos = meshRef.current.geometry.getAttribute('position');
       getVertices(size.width, size.height, size.depth).forEach((vertix, i) => {
