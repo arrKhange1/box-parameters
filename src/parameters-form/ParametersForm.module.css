@@ -1,23 +1,23 @@
-.formWrapper {
-    flex: 1;
-    background-color: var(--bg);
+.form {
+  flex: 1;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  gap: 1em;
+  padding: 0 1em;
+  max-width: 250px;
 }
 
-.form {
-    flex: 1;
-    background-color: var(--bg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-    gap: 1em;
-    padding: 0 1em;
-    max-width: 250px;
+.dark {
+  background-color: #483475;
+  color: var(--white);
 }
 
 .form::before {
-    content: 'Box Parameters';
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 500;
+  content: 'Box Parameters';
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
 }

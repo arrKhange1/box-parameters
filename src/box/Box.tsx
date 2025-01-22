@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import * as THREE from 'three';
 import { getVertices } from '../helper/getVertices';
-import { defaultParameters } from '../constants/parameters.constant';
+import { DEFAULT_PARAMETERS } from '../constants/parameters.constant';
 
 interface BoxProps {}
 
@@ -26,7 +26,7 @@ export const Box = forwardRef<THREE.Mesh, BoxProps>((_, meshRef) => {
       <mesh ref={meshRef}>
         <bufferGeometry>
           <bufferAttribute
-            array={getVertices(defaultParameters.width, defaultParameters.height, defaultParameters.depth)}
+            array={getVertices(DEFAULT_PARAMETERS.width, DEFAULT_PARAMETERS.height, DEFAULT_PARAMETERS.depth)}
             attach="attributes-position"
             itemSize={3}
           />

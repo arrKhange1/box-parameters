@@ -12,4 +12,5 @@ body,
   --lime: hsl(150deg 30% 60%);
   --black-raisin: hsl(0, 0, 15, 54%);
   --error: hsl(0, 100%, 59%);
+  --white: rgb(226, 221, 221);
 }

@@ -2,7 +2,10 @@ import { useForm } from 'react-hook-form';
 import cls from './ParametersForm.module.css';
 import { Input } from '../ui/input/Input';
 import { FieldWrapper } from '../ui/FieldWrapper/FieldWrapper';
-import { defaultParameters } from '../constants/parameters.constant';
+import { DEFAULT_PARAMETERS } from '../constants/parameters.constant';
+import { useContext } from 'react';
+import { ThemeContext } from '../app/App';
+import clsx from 'clsx';
 
 export type ParametersForm = {
   width: number;
@@ -24,9 +27,11 @@ export const ParametersForm: React.FC<ParametersFormProps> = ({ onParametersFill
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ParametersForm>({
-    defaultValues: defaultParameters,
+    defaultValues: DEFAULT_PARAMETERS,
     mode: 'onChange',
   });
+
+  const isLight = useContext<boolean>(ThemeContext);
 
   function onSubmit(form: ParametersForm) {
     onParametersFilled(form);
@@ -34,7 +39,7 @@ export const ParametersForm: React.FC<ParametersFormProps> = ({ onParametersFill
 
   return (
     <>
-      <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={clsx(cls.form, { [cls.dark]: !isLight })} onSubmit={handleSubmit(onSubmit)}>
         <FieldWrapper title="Width" errorMessage={errors.width?.message}>
           <Input
             {...register('width', {
