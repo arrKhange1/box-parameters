@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { defaultParameters } from './parameters.constant';
+import { defaultParameters } from '../parameters.constant';
+import cls from './ParametersForm.module.css';
+import { Input } from '../ui/input/Input';
 
 export type ParametersForm = {
   width: number;
@@ -21,11 +23,13 @@ export const ParametersForm: React.FC<ParametersFormProps> = ({ onParametersFill
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('width')} type="number" placeholder="Width" />
-      <input {...register('height')} type="number" placeholder="Height" />
-      <input {...register('depth')} type="number" placeholder="Depth" />
-      <input type="submit" />
-    </form>
+    <>
+      <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+        <Input {...register('width')} type="text" placeholder="Width" />
+        <Input {...register('height')} type="text" placeholder="Height" />
+        <Input {...register('depth')} type="text" placeholder="Depth" />
+        <Input type="submit" />
+      </form>
+    </>
   );
 };

@@ -6,4 +6,7 @@ html, body, #root {
 
 :root {
   box-sizing: border-box;
+  --bg: hsla(207, 5%, 67%, 0.299);
+  --lime: hsl(150deg 30% 60%);
+  --black-raisin: hsl(0, 0, 15, 54%);
 }

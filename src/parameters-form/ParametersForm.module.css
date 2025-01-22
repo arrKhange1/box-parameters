@@ -1,0 +1,23 @@
+.formWrapper {
+    flex: 1;
+    background-color: var(--bg);
+}
+
+.form {
+    flex: 1;
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    gap: 1em;
+    padding: 0 1em;
+    max-width: 250px;
+}
+
+.form::before {
+    content: 'Box Parameters';
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+}

@@ -1,0 +1,28 @@
+.input[type='text'] {
+    font-size: inherit;
+    border: 0.5px solid var(--black-raisin);
+    border-radius: 10px;
+    outline: 1px solid transparent;
+    padding: 0.75em 0.5em;
+    transition: outline 250ms ease-out;
+  }
+
+  .input[type='text']:focus {
+    outline: 1px solid var(--lime);
+  }
+  
+  .input[type='button'],
+  .input[type='submit'] {
+    font-size: inherit;
+    background: none;
+    background-color: var(--lime);
+    border: 0.5px solid var(--black-raisin);
+    border-radius: 10px;
+    padding: 0.75em 0.5em;
+    cursor: pointer;
+    outline: 1px solid transparent;
+  }
+  
+  .input[type='submit']:disabled {
+    cursor: default;
+  }
