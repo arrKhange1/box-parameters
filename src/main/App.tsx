@@ -23,10 +23,9 @@ function App() {
   return (
     <div className={cls.canvasContainer}>
       <ParametersForm onParametersFilled={onParametersFilled} />
-      <Canvas className={cls.canvas}>
+      <Canvas className={cls.canvas} camera={{ position: [-5, 3, 2] }}>
         <axesHelper args={[5]} />
         <OrbitControls />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
         <MyMesh ref={meshRef} />
       </Canvas>
     </div>
