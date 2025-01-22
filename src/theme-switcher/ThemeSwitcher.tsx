@@ -10,7 +10,8 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ toggleTheme }) => 
   const isLight = useContext<boolean>(ThemeContext);
   return (
     <button className={cls.switcher} onClick={() => toggleTheme()}>
-      {isLight ? 'Light' : 'Dark'}
+      {isLight && <img className={cls.switcherIcon} src="src/ui/icons/dark.svg" />}
+      {!isLight && <img className={cls.switcherIcon} src="src/ui/icons/light.svg" />}
     </button>
   );
 };

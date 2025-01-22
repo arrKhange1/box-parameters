@@ -14,3 +14,8 @@ body,
   --error: hsl(0, 100%, 59%);
   --white: rgb(226, 221, 221);
 }
+
+button {
+  background: unset;
+  border: none;
+}
