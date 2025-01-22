@@ -12,7 +12,7 @@ function App() {
   function onParametersFilled(form: ParametersForm) {
     console.log(form);
     if (meshRef.current) {
-      const pos = meshRef.current.geometry.getAttribute('position'); // camera pos z changes when mesh z changes
+      const pos = meshRef.current.geometry.getAttribute('position');
       getVertices(form.width, form.height, form.depth).forEach((vertex, i) => {
         pos['array'][i] = vertex;
       });
