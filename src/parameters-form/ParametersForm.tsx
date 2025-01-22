@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { defaultParameters } from '../parameters.constant';
 import cls from './ParametersForm.module.css';
 import { Input } from '../ui/input/Input';
 import { FieldWrapper } from '../ui/FieldWrapper/FieldWrapper';
+import { defaultParameters } from '../constants/parameters.constant';
 
 export type ParametersForm = {
   width: number;
