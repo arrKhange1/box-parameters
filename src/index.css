@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -9,4 +11,5 @@ html, body, #root {
   --bg: hsla(207, 5%, 67%, 0.299);
   --lime: hsl(150deg 30% 60%);
   --black-raisin: hsl(0, 0, 15, 54%);
+  --error: hsl(0, 100%, 59%);
 }
