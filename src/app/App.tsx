@@ -8,6 +8,7 @@ import { Box } from '../box/Box';
 import { getVertices } from '../helper/getVertices';
 import clsx from 'clsx';
 import { CANVAS_DARK, CANVAS_LIGHT } from '../constants/canvas-light.constant';
+import { ThemeSwitcher } from '../theme-switcher/ThemeSwitcher';
 
 export const ThemeContext = createContext<boolean>(true);
 
@@ -34,9 +35,7 @@ function App() {
           <ambientLight intensity={isLight ? CANVAS_LIGHT : CANVAS_DARK} />
           <Box ref={meshRef} />
         </Canvas>
-        <button style={{ position: 'absolute', top: '1em', right: '1em' }} onClick={() => setIsLight((prev) => !prev)}>
-          {isLight ? 'Light' : 'Dark'}
-        </button>
+        <ThemeSwitcher toggleTheme={() => setIsLight((prev) => !prev)} />
       </div>
     </ThemeContext.Provider>
   );
