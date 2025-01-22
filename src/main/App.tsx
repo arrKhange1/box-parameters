@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import cls from './App.module.css';
-import { getVertices, MyMesh } from '../MyMesh';
+import { Box, getVertices } from './Box';
 import { useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { ParametersForm } from '../parameters-form/ParametersForm';
@@ -26,7 +26,8 @@ function App() {
       <Canvas className={cls.canvas} camera={{ position: [-5, 3, 2] }}>
         <axesHelper args={[5]} />
         <OrbitControls />
-        <MyMesh ref={meshRef} />
+        <ambientLight intensity={Math.PI / 2} />
+        <Box ref={meshRef} />
       </Canvas>
     </div>
   );

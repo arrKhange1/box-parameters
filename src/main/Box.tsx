@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import * as THREE from 'three';
-import { defaultParameters, FULL_RELATIVE_SIZE } from './parameters.constant';
+import { defaultParameters, FULL_RELATIVE_SIZE } from '../parameters.constant';
 
-interface MyMeshProps {}
+interface BoxProps {}
 
 export function getVertices(width: number, height: number, depth: number): Float32Array {
   const meshWidth = width / FULL_RELATIVE_SIZE;
@@ -51,7 +51,7 @@ const indices = new Uint32Array([
   0, 3, 7, 7, 4, 0,
 ]);
 
-export const MyMesh = forwardRef<THREE.Mesh, MyMeshProps>((props, meshRef) => {
+export const Box = forwardRef<THREE.Mesh, BoxProps>((props, meshRef) => {
   return (
     <>
       <mesh ref={meshRef}>
@@ -63,7 +63,7 @@ export const MyMesh = forwardRef<THREE.Mesh, MyMeshProps>((props, meshRef) => {
           />
           <bufferAttribute array={indices} attach="index" count={indices.length} />
         </bufferGeometry>
-        <meshStandardMaterial side={THREE.DoubleSide} />
+        <meshStandardMaterial side={THREE.DoubleSide} color={'orange'} />
       </mesh>
     </>
   );
