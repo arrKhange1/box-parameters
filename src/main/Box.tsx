@@ -51,7 +51,7 @@ const indices = new Uint32Array([
   0, 3, 7, 7, 4, 0,
 ]);
 
-export const Box = forwardRef<THREE.Mesh, BoxProps>((props, meshRef) => {
+export const Box = forwardRef<THREE.Mesh, BoxProps>((_, meshRef) => {
   return (
     <>
       <mesh ref={meshRef}>
